@@ -66,8 +66,72 @@ function App() {
     setGift(gifts[index]);
   }
 
+  // Ví dụ về two way binding của text
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const handlerSubmit = () => {
+    console.log({
+      name,
+      email
+    })
+  }
+
+  // Ví dụ về two way binding của radio
+  const [checked, setChecked] = useState();
+
+  const courses = [
+    {
+      id: 1,
+      name: 'Javascript'
+    },
+    {
+      id: 2,
+      name: 'HTML, CSS'
+    },
+    {
+      id: 3,
+      name: 'ReactJS'
+    }
+  ]
+
+  const handlerSubmitCourse = () => {
+    console.log({ id: checked })
+  }
+
   return (
     <div className="App" style={{ padding: 20 }}>
+      {/* Ví dụ về two-way Binding của text */}
+      <input
+        type="text"
+        value={name}
+        onChange={e => setName(e.target.value)}
+        placeholder="Name"
+      />
+      <input type='email' value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" />
+      <button type="submit" onClick={handlerSubmit}>Register</button>
+
+      {/* Ví dụ về two-way Binding của radio */}
+      {courses.map(course => (
+        <div key={course.id}>
+          <input
+            type="radio"
+            onChange={() => setChecked(course.id)}
+            checked={checked === course.id}
+          />
+          {course.name}
+        </div>
+      ))}
+
+      {/* Ví dụ về two-way Binding của checkbox */}
+      {courses.map(course => (
+        <div key={course.id}>
+          <input
+            type="checkbox"
+          />
+          {course.name}
+        </div>
+      ))}
+      <button onClick={handlerSubmitCourse}>Đăng ký khoá học</button>
       <h1>{counter}</h1>
       <button onClick={handlerIncrease}>Increase</button>
       <button onClick={handlerDecrease}>Decrease</button>
