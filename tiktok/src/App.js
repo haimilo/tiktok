@@ -4,6 +4,14 @@
 */
 import { useState } from 'react'
 
+const costOfCourse = [100, 200, 300];
+
+const gifts = [
+  'CPU i9',
+  'RAM 32GB RGB',
+  'RGB Keyboard'
+]
+
 function App() {
   // InitialState được gán bằng callback
   /*
@@ -34,11 +42,40 @@ function App() {
     setCounter(counter - 1)
   }
 
+  const [cost, setCost] = useState(() => {
+    const totalCost = costOfCourse.reduce((totalCost, cur) => totalCost + cur);
+
+    console.log(totalCost);
+    return totalCost;
+  });
+
+  const handlerUpdateUp = () => {
+    setCost(cost + 100)
+  };
+
+  const handlerUpdateDown = () => {
+    setCost(cost - 100)
+  };
+
+  // Ví dụ lấy phần thưởng 26_Two-way_Binding
+  const [gift, setGift] = useState()
+
+  const randomGift = () => {
+    const index = Math.floor(Math.random() * gifts.length)
+
+    setGift(gifts[index]);
+  }
+
   return (
     <div className="App" style={{ padding: 20 }}>
       <h1>{counter}</h1>
       <button onClick={handlerIncrease}>Increase</button>
       <button onClick={handlerDecrease}>Decrease</button>
+      <h2>{cost}</h2>
+      <button onClick={handlerUpdateUp}>Update Up</button>
+      <button onClick={handlerUpdateDown}>Update Down</button>
+      <h1>{gift || 'Chưa có phần thưởng'}</h1>
+      <button onClick={randomGift}>Lấy phần thưởng</button>
     </div>
   );
 }
