@@ -19,39 +19,44 @@ const courses = [
   }
 ]
 
+
+
 function App() {
-  const [checked, setChecked] = useState([]);
-  console.log(checked);
-  const handlerCheck = (id) => {
-    setChecked(prev => {
-      const isChecked = checked.includes(id)
-      if (isChecked) {
-        // Uncheck
-        return checked.filter(item => item !== id)
-      } else {
-        return [...prev, id]
-      }
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handlerRegistor = () => {
+    console.log({
+      name,
+      email,
+      password
     })
   }
-  const handlerSubmit = () => {
-    // Call API
-    console.log({ id: checked })
-  }
-
   return (
     <div className="App" style={{ padding: 32 }}>
-      {courses.map(course => (
-        <div key={course.id}>
-          <input
-            type="checkbox"
-            checked={checked.includes(course.id)}
-            onChange={() => handlerCheck(course.id)}
-          />
-          {course.name}
-        </div>
-      ))}
+      <input
+        type="text"
+        value={name}
+        onChange={e => setName(e.target.value)}
+        placeholder="Enter your Name" />
+      <br />
 
-      <button onClick={handlerSubmit}>Register</button>
+      <input
+        type="text"
+        value={email}
+        onChange={e => setEmail(e.target.value)}
+        placeholder="Enter your Email" />
+      <br />
+
+      <input
+        type="password"
+        value={password}
+        onChange={e => setPassword(e.target.value)}
+        placeholder="Enter your Password" />
+      <br />
+
+      <button onClick={handlerRegistor}>Registor</button>
     </div>
   );
 }
