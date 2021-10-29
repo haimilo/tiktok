@@ -2,25 +2,42 @@ import { useState } from 'react'
 
 function App() {
   const [jobs, setJobs] = useState([]);
-  const [job, setJob] = useState('');
+  const [item, setItem] = useState('');
   const handlerSubmit = () => {
-    setJobs(prev => [...prev, job]);
-    setJob('');
+    setJobs(prev => {
+      const newWorks = (item !== "") ? [...prev, item] : [...prev];
+      const jsonWorks = JSON.stringify(newWorks);
+      localStorage.setItem('job', jsonWorks);
+      return newWorks;
+    })
+    setItem('');
   }
+  const handleDelete = (i) => setJobs((prev) => {
+    const newWorksDelete = prev.filter((item) => (item !== prev[i]));
+    const jsonWorksDelete = JSON.stringify(newWorksDelete);
+    localStorage.setItem('job', jsonWorksDelete);
+    return newWorksDelete;
+  })
   return (
-    <div className="App" style={{ padding: 32 }}>
+    <div style={{ padding: 30 }}>
       <input
-        value={job}
-        onChange={e => setJob(e.target.value)}
+        onChange={(e) => setItem(e.target.value)}
+        value={item}
       />
       <button onClick={handlerSubmit}>Add</button>
       <ul>
-        {jobs.map((job, index) => (
-          <div style={{ display: 'flex' }}>
-            <li key={index}>{job}</li>
-            <input type="checkbox" />
-          </div>
-        ))}
+        {jobs.map((work, index) => {
+          return (
+            <li key={index}>
+              {work}
+              <button
+                style={{ marginLeft: 10, borderRadius: 10 }}
+                onClick={() => handleDelete(index)}>
+                Delete
+              </button>
+            </li>
+          )
+        })}
       </ul>
     </div>
   );
