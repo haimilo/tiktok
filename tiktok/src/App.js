@@ -1,62 +1,27 @@
 import { useState } from 'react'
 
-const courses = [
-  {
-    id: 1,
-    name: "HTML, CSS"
-  },
-  {
-    id: 2,
-    name: "Javascript"
-  },
-  {
-    id: 3,
-    name: "ReactJS"
-  },
-  {
-    id: 4,
-    name: "NodeJS"
-  }
-]
-
-
-
 function App() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handlerRegistor = () => {
-    console.log({
-      name,
-      email,
-      password
-    })
+  const [jobs, setJobs] = useState([]);
+  const [job, setJob] = useState('');
+  const handlerSubmit = () => {
+    setJobs(prev => [...prev, job]);
+    setJob('');
   }
   return (
     <div className="App" style={{ padding: 32 }}>
       <input
-        type="text"
-        value={name}
-        onChange={e => setName(e.target.value)}
-        placeholder="Enter your Name" />
-      <br />
-
-      <input
-        type="text"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        placeholder="Enter your Email" />
-      <br />
-
-      <input
-        type="password"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        placeholder="Enter your Password" />
-      <br />
-
-      <button onClick={handlerRegistor}>Registor</button>
+        value={job}
+        onChange={e => setJob(e.target.value)}
+      />
+      <button onClick={handlerSubmit}>Add</button>
+      <ul>
+        {jobs.map((job, index) => (
+          <div style={{ display: 'flex' }}>
+            <li key={index}>{job}</li>
+            <input type="checkbox" />
+          </div>
+        ))}
+      </ul>
     </div>
   );
 }
