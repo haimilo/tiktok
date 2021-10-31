@@ -1,6 +1,19 @@
+import { useState, useEffect } from 'react'
+
 function Content() {
+    const [title, setTitle] = useState('');
+
+    useEffect(() => {
+        console.log('Mounted')
+    })
+
     return (
-        <h1>Xin Chào Anh Em!</h1>
+        <div>
+            <input
+                value={title}
+                onChange={e => setTitle(e.target.value)}
+            />
+        </div>
     )
 }
 
