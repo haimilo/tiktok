@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Content from './Content'
 
 function App() {
@@ -10,6 +10,15 @@ function App() {
       {show && <Content />}
     </div>
   );
+}
+
+function oddNumbers() {
+  var arr = [];
+  //your code here 
+  for (var i = 1; i <= 50; i += 2) {
+    arr.push([i]);
+  }
+  return arr;
 }
 
 export default App;
